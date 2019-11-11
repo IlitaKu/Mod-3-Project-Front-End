@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>To Do List</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="./src/index.js"></script>
+    <script defer src="./index.js"></script>
   </head>
   <body>
     <header>
@@ -13,7 +13,23 @@
     </header>
 
     <main>
-      <!-- Notes -->
+        <div class="container">
+            <div class="row" id="image_content">
+              <div class="card col-md-4"></div>
+              <form id="js-task-list-form">
+                  <label for="task-list-entry">Add an item</label>
+                  <input type="text" name="task-title-entry" class="js-task-title-entry" placeholder="e.g., title">
+                  <input type="text" name="task-description-entry" class="js-task-description-entry" placeholder="e.g., description">
+
+                  <button class="task-item">
+                      <span class="button-label">Add task</span>
+                  </button>
+
+              </form>
+            </div>
+            <div class="card col-md-4"></div>
+          </div>
+        </div>
     </main>
   </body>
 </html>
