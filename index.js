@@ -25,13 +25,15 @@ const categoriesUrl = "http://localhost:3000/categories"
             const categoryUl = document.createElement('ul');
             const name = document.createElement('h4');
             const div = document.createElement('div')
-            name.innerHTML  = `${category.title}`
+            name.innerHTML  = `${category.name}`
             // fetch tasks for category id
             fetchTasksHtml(category.id) // 1
                 .then(tasksLi => {
                     // append tasks li to the category ul
                     categoryUl.append(tasksLi);
-                    div.append(div, [name, categoryUl])
+                    div.append(name)
+                    div.append(categoryUl)
+                    
                     container.append(div);
             })
         })
