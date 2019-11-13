@@ -1,7 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('%c DOM Content Loaded and Parsed!', 'color: magenta')
 
-const userUrl = "http://localhost:3000/users"
 const taskUrl = "http://localhost:3000/tasks/"
 const categoriesUrl = "http://localhost:3000/categories"
 
@@ -12,30 +9,37 @@ const categoriesUrl = "http://localhost:3000/categories"
             .then(tasks => displayCards(tasks, categoryId))
     }
 
-
-
     fetch(categoriesUrl)
         .then(res => res.json())
         .then(data => displayCategories(data))
 
+
     function displayCategories(categories){
-        const container = document.querySelector('.container')
+        // const name = document.createElement('h4');
+        // container is the whole main body.
+        const categoriesCollection = document.querySelector('#categories_collection')
         categories.forEach(category => {
-            // create ul for each category id
-            const categoryUl = document.createElement('ul');
-            const name = document.createElement('h4');
-            const div = document.createElement('div')
-            name.innerHTML  = `${category.name}`
-            // fetch tasks for category id
-            fetchTasksHtml(category.id) // 1
-                .then(tasksLi => {
-                    // append tasks li to the category ul
-                    categoryUl.append(tasksLi);
-                    div.append(name)
-                    div.append(categoryUl)
+            const divFor1Category = document.createElement('div')
+                    const h2tag = document.createElement('h2')
+                        h2tag.innerHTML = category.name
+                    const ulTag = document.createElement('ul')
+                        ulTag.innerHTML= 'List of Tasks:'
+                    const submitButton = document.createElement('button')
+                            submitButton.classList.add('submit')
+                            submitButton.dataset.id = category.id
+                            submitButton.innerText= "New Task"
+            divFor1Category.append(h2tag, ulTag, submitButton)
+            categoriesCollection.appendChild(divFor1Category)
+            fetchTasksHtml(category.id)
+                .then(taskslist => {
+                    const listedTasks = document.createElement('li')
+                    taskslist.forEach(task => {
+                        listedTasks.innerText = task
+                    })
                     
-                    container.append(div);
-            })
+                    
+                    debugger
+                })
         })
     }
 
@@ -54,6 +58,7 @@ function createNewTask(newTask){
 }
 
 function displayCards(tasks, categoryId){
+    debugger
     const filterredTaskList = tasks.filter(task => task.category_id === categoryId)
     const list = document.createElement('li')
     const appendedList = filterredTaskList.map(item => (list.innerHTML = `${item.title}`))
@@ -76,4 +81,22 @@ function displayCards(tasks, categoryId){
      }
      createNewTask(newTask)
  })
-})
+
+
+  // fetch tasks for category id
+   // fetchTasksHtml(category.id) // 1
+            //     .then(tasksLi => {
+            //         // debugger
+            //         // append tasks li to the category ul
+            //         const categoryUl = document.createElement('ul');
+            //         const tasklist = document.createElement('li')
+            //         tasklist.innerHTML = tasksLi.join()
+            //         categoryUl.append(tasksLi)
+            //         // categoryUl.append(tasksLi);
+            //         // debugger
+            //         // div.append(name)
+            //         // div.append(categoryUl)
+
+            //         // container.append(div);
+            //         divFor1Category.append(categoryUrl)
+            // })
